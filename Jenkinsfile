@@ -2,11 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/ThanujaRatakonda/mywebapp.git', credentialsId: 'github-creds'
-            }
-        }
         stage('Build') {
             steps {
                 bat 'mvn clean package'
@@ -18,12 +13,13 @@ pipeline {
             }
         }
     }
+    
     post {
         success {
             echo 'Build and tests completed successfully!'
         }
         failure {
-            echo 'Build or tests failed!'
+            echo 'Build or tests failed.'
         }
     }
 }
