@@ -4,29 +4,27 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git url: 'https://github.com/ThanujaRatakonda/mywebapp.git', credentialsId: 'github-creds'
             }
         }
-
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
-
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
     }
 
     post {
         success {
-            echo 'Build and Tests succeeded!'
+            echo 'Build and tests completed successfully!'
         }
         failure {
-            echo 'Build or Tests failed!'
+            echo 'Build or tests failed!'
         }
     }
 }
